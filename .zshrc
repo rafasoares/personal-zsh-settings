@@ -5,10 +5,7 @@ source ~/.fonts/*.sh
 source ~/config/pl9k.sh
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/rafaelsoares/.oh-my-zsh
-
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -65,7 +62,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z ruby rails rvm osx colored-man colorize github jira zsh-syntax-highlighting brew docker docker-compose)
+plugins=(git z ruby rails rvm nvm osx colored-man colorize github jira zsh-syntax-highlighting brew docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,6 +103,9 @@ function r() { grep "$1" ${@:2} -R . }
 
 #mkdir and cd
 function mkcd() { mkdir -p "$@" && cd "$_"; }
+
+# NVM initialization
+source ~/config/nvm.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
