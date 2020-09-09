@@ -1,0 +1,50 @@
+#!/bin/zsh
+# shellcheck shell=bash
+
+p() {
+  # Color presets
+  info=$(tput setaf 4)
+  success=$(tput setaf 2)
+  warn=$(tput setaf 3)
+  error=$(tput setaf 1)
+  normal=$(tput sgr0)
+
+  # Defaut options
+  color=
+  lead="\n"
+  trail="\n"
+
+  while true; do
+    case $1 in
+      -e|err|error) color=${error}; shift ;;
+      -s|suc|success|ok) color=${success}; shift ;;
+      -w|wrn|warn|warning) color=${warn}; shift ;;
+      -i|inf|info) color=${warn}; shift ;;
+      lead) trail=""; shift ;;
+      trail) lead=""; shift ;;
+      *) color=${color:-$info}; break ;;
+    esac
+  done
+
+  printf "$lead$color%s$normal$trail" "$@"
+}
+
+test() {
+  if eval "$@"; then
+    p ok "Done"
+  else
+    p err "An error occurred!"
+  fi
+}
+
+p lead "File updated, reloading ZSH... "
+# shellcheck source=/Users/rsilva/.zshrc
+source ~/.zshrc
+p trail ok "Done"
+
+p "Printing help message..."
+test connect -h
+
+
+p "Testing connection..."
+test connect -v smart-system_production
